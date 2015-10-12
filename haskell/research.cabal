@@ -13,10 +13,13 @@ name:                research
 version:             0.1.0.0
 
 -- A short (one-line) description of the package.
-synopsis:            repository to host code examples and source papers (where possible) exploring ideas from research papers
+synopsis:            repository to host code examples and source papers (when
+                     possible)
 
 -- A longer description of the package.
--- description:
+description:         the idea is to have a repository which can capture concrete
+                     understanding of research ideas by way of code examples in
+                     different languages.
 
 -- URL for the project homepage or repository.
 homepage:            https://github.com/suhailshergill/research
