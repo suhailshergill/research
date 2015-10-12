@@ -14,15 +14,9 @@
 #+SELECT_TAGS: export
 #+PROPERTY: header-args :noweb yes 
 #+STARTUP: hideblocks
-* TODO [[file:~/org/notes.org::*Fri%20Oct%203%2007:40:15%202014%20(datalog:%20logic:%20decision-procedure:%20zseq:%20rete%20algorithm)][connection between zseq and tabling]]
-  
-  [[file:~/Dropbox/Public/papers/pl/haskell/zseq_reflection_without_remorse_kiselyov/zseq_reflection_without_remorse_kiselyov.org]]
-  - State "TODO"       from ""           [2014-10-03 Fri 03:48] \\
-
-  :PROPERTIES:
-  :CUSTOM_ID: 0688cd80-9d8b-4896-bd11-9a7d89c9559e
-  :END:
-* TODO presentation @ papers we love, toronto
+* DONE [[https://docs.google.com/presentation/d/1Kl9xUAv5bIsA67GqhmI6D7Ouysgi9pM8pO9IotiYPOQ/edit?usp%3Dsharing][presentation]] @ papers we love, toronto
+  CLOSED: [2015-10-12 Mon 02:03]
+  - State "DONE"       from "TODO"       [2015-10-12 Mon 02:03]
   - State "TODO"       from ""           [2015-10-07 Wed 01:13] \\
 
   :PROPERTIES:
@@ -42,7 +36,10 @@
    - [[docview:~/Dropbox/Public/papers/pl/data-structures/purely-functional-data-structures_okasaki_96/purely-functional-data-structures_okasaki_96.pdf::127][okasaki's examples run in O(1) amortized]]
    - [[docview:~/Dropbox/Public/papers/pl/data-structures/purely-functional-data-structures_okasaki_96/purely-functional-data-structures_okasaki_96.pdf::137][kaplan and tarjan's {KT96a} seems to provide O(1) worst case]]
      - confirmed via [[docview:~/Dropbox/Public/papers/pl/data-structures/purely-functional-data-structures_okasaki_96/persistent-lists-with-catenation-via-recursive-slow-down_kaplan-tarjan_95.pdf::1][source (KT95)]]
-** TODO [[http://okmij.org/ftp/Haskell/Reflection.html#list-appends][monomorphic example]]
+** DONE [[file:../../../../../haskell/src/Research/Algorithms/Data/Zseq.hs][monomorphic example]]
+   CLOSED: [2015-10-12 Mon 01:55]
+   - State "DONE"       from "TODO"       [2015-10-12 Mon 01:55] \\
+     committing code in <https://github.com/suhailshergill/research>
 *** List example
     - Node*(A) -> [Char]
       - prim (show): Int -> [Char] 
@@ -142,57 +139,12 @@
         style X'2 fill:#f66;
         style +' fill:#f66;
     #+END_QUOTE
-
-    #+NAME: zseq/fix/monomorphic
-    #+BEGIN_SRC haskell 
-      import qualified Data.Sequence as Seq -- efficient IR
-      import Data.Sequence ((><),ViewL(..))
-      import Data.Foldable (toList)
-
-      date ListView a = Nil
-                        | Cons a (List' a)
-
-      data List' a where
-        List' :: Seq.Seq (ListView a) -> List' a
-
-      (++) :: List' a -> List' a -> List' a
-      (List' xs) ++ (List' ys) = List' (xs >< ys)
-
-      char :: Char -> Seq.Seq Char
-      char = Seq.singleton
-
-      base2Derived  :: [Char] -> Seq.Seq Char
-      base2Derived = Seq.fromList
-
-      derived2Base :: Seq.Seq Char -> ListView Char
-      derived2Base (List' xs) = case (viewl xs) of
-        EmptyL -> Nil
-        h :< t -> Cons h t
-
-      base2Native :: ListView a -> [a]
-      base2Native xs = case xs of
-        Nil -> []
-        Cons h t -> undefined
-
-      showLst :: Show a => [a] -> String
-      showLst = 
-      showFixed :: Show a => [a] -> Seq.Seq Char
-      go (Arr [])    = base2Derived "[]"
-              go (Arr (h:t)) = let (p:<s) = Seq.viewl (go (Arr t)) in
-                char p >< go h ><
-                (case Seq.viewl s of {']' :< _ -> s; _ -> char ',' >< s})
-
-      showjSeq :: JSON -> String
-           showjSeq j = toList (go j)
-            where
-              
-              
-              
-              go :: JSON -> Seq.Seq Char
-              go (A x)       = str (show x)
-              go (Node t j)  = char '{' >< str t >< char ' ' >< go j >< char '}'
-           
-              
-    #+END_SRC
-
 * TODO [[http://okmij.org/ftp/Haskell/Reflection.html#iteratee][polymorphic example]]
+* TODO [[file:~/org/notes.org::*Fri%20Oct%203%2007:40:15%202014%20(datalog:%20logic:%20decision-procedure:%20zseq:%20rete%20algorithm)][connection between zseq and tabling]]
+  
+  [[file:~/Dropbox/Public/papers/pl/haskell/zseq_reflection_without_remorse_kiselyov/zseq_reflection_without_remorse_kiselyov.org]]
+  - State "TODO"       from ""           [2014-10-03 Fri 03:48] \\
+
+  :PROPERTIES:
+  :CUSTOM_ID: 0688cd80-9d8b-4896-bd11-9a7d89c9559e
+  :END:
