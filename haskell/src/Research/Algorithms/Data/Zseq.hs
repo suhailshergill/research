@@ -1,5 +1,5 @@
 {-# OPTIONS -Wall -Werror #-}
-{-# OPTIONS_HADDOCK show-extensions #-}
+{-# OPTIONS_HADDOCK show-extensions, ignore-exports #-}
 {-# LANGUAGE MultiParamTypeClasses, TypeFamilies #-}
 {-# LANGUAGE FlexibleContexts, FlexibleInstances #-}
 

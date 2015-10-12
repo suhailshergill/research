@@ -34,7 +34,7 @@ rm -rf $PROJECT_NAME
 # only haskell language supported for now
 # FIXME: make this language agnostic
 mkdir -p $PROJECT_NAME
-mv ../haskell/dist/doc/html $PROJECT_NAME/haskell
+mv ../haskell/dist/doc/html/research $PROJECT_NAME/haskell
 git add -A $PROJECT_NAME
 git commit -qm "doc upload for $PROJECT_NAME ($TRAVIS_REPO_SLUG)"
 git push -q origin gh-pages
