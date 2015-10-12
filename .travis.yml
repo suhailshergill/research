@@ -47,3 +47,7 @@ before_install:
 
 script:
   - make test-all # calls build, test package
+
+after_success:
+  - cd ..
+  - cat travis/travis-doc-upload.sh | sh
