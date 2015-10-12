@@ -1,0 +1,198 @@
+#+TITLE: [[docview:zseq_reflection_without_remorse_kiselyov.pdf::1][Reflection without Remorse]]
+#+DATE: <2014-10-03 Fri>
+#+AUTHOR: Atze van der Ploeg, Oleg Kiselyov
+#+EMAIL: ploeg@cwi.nl, oleg@okmij.org
+#+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline author:t c:nil
+#+OPTIONS: creator:comment d:(not "LOGBOOK") date:t e:t email:nil f:t inline:t
+#+OPTIONS: num:t p:nil pri:nil stat:t tags:t tasks:t tex:t timestamp:t toc:t
+#+OPTIONS: todo:t |:t
+#+CREATOR: Emacs 24.3.1 (Org mode 8.2.5h)
+#+DESCRIPTION:
+#+EXCLUDE_TAGS: noexport
+#+KEYWORDS:
+#+LANGUAGE: en
+#+SELECT_TAGS: export
+#+PROPERTY: header-args :noweb yes 
+#+STARTUP: hideblocks
+* TODO [[file:~/org/notes.org::*Fri%20Oct%203%2007:40:15%202014%20(datalog:%20logic:%20decision-procedure:%20zseq:%20rete%20algorithm)][connection between zseq and tabling]]
+  
+  [[file:~/Dropbox/Public/papers/pl/haskell/zseq_reflection_without_remorse_kiselyov/zseq_reflection_without_remorse_kiselyov.org]]
+  - State "TODO"       from ""           [2014-10-03 Fri 03:48] \\
+
+  :PROPERTIES:
+  :CUSTOM_ID: 0688cd80-9d8b-4896-bd11-9a7d89c9559e
+  :END:
+* TODO presentation @ papers we love, toronto
+  - State "TODO"       from ""           [2015-10-07 Wed 01:13] \\
+
+  :PROPERTIES:
+  :CUSTOM_ID: 8f0875d3-31f8-4f33-9f77-f3361baafa22
+  :END:
+** DONE how to analyze complexity
+   CLOSED: [2015-10-12 Mon 00:19]
+   - State "DONE"       from "TODO"       [2015-10-12 Mon 00:19] \\
+     only need to use rough calculations for paper
+   - use [[docview:~/Dropbox/Public/papers/pl/data-structures/purely-functional-data-structures_okasaki_96/purely-functional-data-structures_okasaki_96.pdf::33][okasaki's framework for analyzing data structures]]
+   - okasaki uses [[docview:~/Dropbox/Public/papers/pl/data-structures/purely-functional-data-structures_okasaki_96/purely-functional-data-structures_okasaki_96.pdf::35][banker's method and debit passing]] to [[docview:~/Dropbox/Public/papers/pl/data-structures/purely-functional-data-structures_okasaki_96/purely-functional-data-structures_okasaki_96.pdf::133][explain complexity of
+   catenable double-ended queues]]
+** DONE reference to O(1) worst case sequence data structures
+   CLOSED: [2015-10-12 Mon 00:19]
+   - State "DONE"       from "TODO"       [2015-10-12 Mon 00:19]
+   - cons (push), tail (pop), catenate
+   - [[docview:~/Dropbox/Public/papers/pl/data-structures/purely-functional-data-structures_okasaki_96/purely-functional-data-structures_okasaki_96.pdf::127][okasaki's examples run in O(1) amortized]]
+   - [[docview:~/Dropbox/Public/papers/pl/data-structures/purely-functional-data-structures_okasaki_96/purely-functional-data-structures_okasaki_96.pdf::137][kaplan and tarjan's {KT96a} seems to provide O(1) worst case]]
+     - confirmed via [[docview:~/Dropbox/Public/papers/pl/data-structures/purely-functional-data-structures_okasaki_96/persistent-lists-with-catenation-via-recursive-slow-down_kaplan-tarjan_95.pdf::1][source (KT95)]]
+** TODO [[http://okmij.org/ftp/Haskell/Reflection.html#list-appends][monomorphic example]]
+*** List example
+    - Node*(A) -> [Char]
+      - prim (show): Int -> [Char] 
+      - combine (++): [Char] -> [Char] -> [Char]
+*** CPS example
+    - Node*(A) -> [Char]
+      - prim (toDiff . show): Int -> DList Char
+        O(1)
+      - combine (.): DList Char -> DList Char -> DList Char
+        O(1)
+      - post (fromDiff): DList Char -> [Char]
+        O(n)
+*** reflection example
+    - [Node*(A)] -> [Char]
+      - prim: Node*(A) -> [Char]
+        7.O(1) + T(m-1)
+      - combine: do rest + (inspect & splice w/ ><)
+        - process tail: T(k-1)
+        - process head: T(1)
+        - inspect tail output
+          - convert tail into view (viewl): O(1)
+          - inspect: O(1)
+          - convert it back (singleton): O(1)
+        - modify tail output (><): 2.O(1) + O(1)
+        \propto O(mk) where |Node*(A)| = m
+        \propto O(n)
+      - post (toList): O(n)
+
+      - viewl: O(1)
+      - singleton: O(1)
+      - toList: O(n)
+        = X' -> XV
+        - benefit is that this is not needed to reflect. do this right at the
+          end if needed. use efficient sequence (X') as the IR
+      - fromList: O(n)
+        = XV -> X'
+        - to be done right at the start
+      - ><: O(1)
+
+     #+BEGIN_QUOTE
+       The code is quite like the original version, but with the different ``append
+       operator'': (><) in place of (++). Sequences can be deconstructed, with
+       viewl, obtaining the left-most element p and the rest s -- which remains the
+       sequence, rather than a list, and so does not have to be converted back to
+       the sequence after prepending a comma.     
+     #+END_QUOTE
+
+    now, why can't we do something like the following:
+    - prim: Node*(A) -> DList Char
+    - combine: DList Char -> DList Char -> DList Char
+      - now, combine would need to observe and modify, but observation can't
+        happen in DList land. as such the cost here would be to
+        - process tail: T(n-1)
+        - inspect tail output
+          - convert tail into list: O(n-1)
+          - inspect: O(1)
+          - convert it back: O(1)
+        - modify tail output: O(1)
+        - *total*: T(n) = T(n-1) + O(n-1) + 2.O(1) \propto O(n^2)
+    - post: DList Char -> [Char]
+      O(n)
+*** problem with CPS
+    - build: append
+    - inspect: unappend, i.e., decompose function composition
+    - can only inspect by going back to original datstructure, which may be
+      expensive
+
+    #+BEGIN_QUOTE
+      graph LR
+        X0 -->|toDiff| X'0
+        X1 -->|toDiff| X'1
+        subgraph +
+        X'0 --> +'
+        X'1 --> +'
+        +' --> X'2
+        end
+        X'2 -->|fromDiff| X2
+        style X'0 fill:#f66;
+        style X'1 fill:#f66;
+        style X'2 fill:#f66;
+        style +' fill:#f66;
+    #+END_QUOTE
+
+*** fix
+    #+BEGIN_QUOTE
+      graph LR
+        X0 -->|view2Derived| X'0
+        X1 -->|view2Derived| X'1
+        subgraph +
+        X'0 --> +'
+        X'1 --> +'
+        +' --> X'2
+        end
+        X'2 -->|derived2View| X2
+        style X'0 fill:#f66;
+        style X'1 fill:#f66;
+        style X'2 fill:#f66;
+        style +' fill:#f66;
+    #+END_QUOTE
+
+    #+NAME: zseq/fix/monomorphic
+    #+BEGIN_SRC haskell 
+      import qualified Data.Sequence as Seq -- efficient IR
+      import Data.Sequence ((><),ViewL(..))
+      import Data.Foldable (toList)
+
+      date ListView a = Nil
+                        | Cons a (List' a)
+
+      data List' a where
+        List' :: Seq.Seq (ListView a) -> List' a
+
+      (++) :: List' a -> List' a -> List' a
+      (List' xs) ++ (List' ys) = List' (xs >< ys)
+
+      char :: Char -> Seq.Seq Char
+      char = Seq.singleton
+
+      base2Derived  :: [Char] -> Seq.Seq Char
+      base2Derived = Seq.fromList
+
+      derived2Base :: Seq.Seq Char -> ListView Char
+      derived2Base (List' xs) = case (viewl xs) of
+        EmptyL -> Nil
+        h :< t -> Cons h t
+
+      base2Native :: ListView a -> [a]
+      base2Native xs = case xs of
+        Nil -> []
+        Cons h t -> undefined
+
+      showLst :: Show a => [a] -> String
+      showLst = 
+      showFixed :: Show a => [a] -> Seq.Seq Char
+      go (Arr [])    = base2Derived "[]"
+              go (Arr (h:t)) = let (p:<s) = Seq.viewl (go (Arr t)) in
+                char p >< go h ><
+                (case Seq.viewl s of {']' :< _ -> s; _ -> char ',' >< s})
+
+      showjSeq :: JSON -> String
+           showjSeq j = toList (go j)
+            where
+              
+              
+              
+              go :: JSON -> Seq.Seq Char
+              go (A x)       = str (show x)
+              go (Node t j)  = char '{' >< str t >< char ' ' >< go j >< char '}'
+           
+              
+    #+END_SRC
+
+* TODO [[http://okmij.org/ftp/Haskell/Reflection.html#iteratee][polymorphic example]]
