@@ -16,7 +16,11 @@ module Research.Algorithms.Data.Zseq(
 import qualified Data.Sequence as Seq
 import Data.Sequence ((><),ViewL(..), (<|), viewl, Seq)
 
-import Prelude hiding ((++), showList, pure, foldr)
+import Prelude (Eq, (==),
+                Show, show,
+                Maybe(..),
+                Char, String,
+                id, (.), ($))
 
 -- | the abstract interface for sequences
 class AbsSeq base where
