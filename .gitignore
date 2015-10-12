@@ -1,2 +1,7 @@
 *~
 *#
+
+haskell/dist
+haskell/docs
+.cabal-sandbox
+cabal.sandbox.config
