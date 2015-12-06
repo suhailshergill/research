@@ -1,0 +1,7 @@
+
+* [[docview:symbolic-bayesian-inference-by-lazy-partial-evaluation_shan-ramsey_16.pdf::11][limitations]]
+** better computer algebra
+   - can something be finagled using [[http://augustss.blogspot.ca/2007/04/overloading-haskell-numbers-part-2.html][lennart's approach to overload Num]]?
+   - [[https://wiki.haskell.org/Applications_and_libraries/Mathematics#Computer_Algebra][haskell CAS]]
+   - [[https://en.wikipedia.org/wiki/List_of_computer_algebra_systems][wiki: list of CAS]]
+*** [[https://github.com/hakaru-dev/hakaru/blob/master/Language/Hakaru/Maple.hs][github: maple simplifier in hakaru]]
