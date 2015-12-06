@@ -1,0 +1,30 @@
+#+TITLE: README
+#+DATE: <2015-12-06 Sun>
+#+AUTHOR: shergill
+#+EMAIL: suhailshergill@gmail.com
+#+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline author:t c:nil
+#+OPTIONS: creator:comment d:(not "LOGBOOK") date:t e:t email:nil f:t inline:t
+#+OPTIONS: num:t p:nil pri:nil stat:t tags:t tasks:t tex:t timestamp:t toc:t
+#+OPTIONS: todo:t |:t
+#+CREATOR: Emacs 24.3.1 (Org mode 8.2.5h)
+#+DESCRIPTION:
+#+EXCLUDE_TAGS: noexport
+#+KEYWORDS:
+#+LANGUAGE: en
+#+SELECT_TAGS: export
+#+PROPERTY: dir-dyn yes 
+#+PROPERTY: dir ~
+#+STARTUP: hideblocks
+* [[http://probabilistic-programming.org/research/][probabilistic programming research]]                                :website:
+* [[http://www.meetup.com/Toronto-Probabilistic-Programming-Meetup/][toronto ProPL]]                                              :website:meetup:
+** STARTED <2016-01-27 Wed> [[http://www.meetup.com/Toronto-Probabilistic-Programming-Meetup/events/227046918/][ProbMods: live coding]]
+   - State "STARTED"    from "TODO"       [2015-12-06 Sun 12:20]
+*** WAITING settle on date
+    - State "WAITING"    from "STARTED"    [2015-12-06 Sun 12:23] \\
+      sent email on [2015-12-06 Sun] to thansha, waiting on response
+    - State "STARTED"    from "TODO"       [2015-12-06 Sun 12:20]
+*** TODO conduct poll
+    need to figure out what people are interested in
+*** TODO create meetup pipeline
+** DONE [2015-11-25 Wed] [[http://www.meetup.com/Toronto-Probabilistic-Programming-Meetup/events/226746558/][ProbMods: Generative Models]]
+   - [[https://docs.google.com/presentation/d/1luD-4fwZ7Cq5Y8ZPHeUtW_4KEoI_YcoqKQBXlI2d6r4/edit?usp%3Dsharing][presentation]]
