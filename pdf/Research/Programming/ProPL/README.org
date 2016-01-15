@@ -34,6 +34,9 @@
 *** TODO create meetup pipeline
 ** DONE [2015-11-25 Wed] [[http://www.meetup.com/Toronto-Probabilistic-Programming-Meetup/events/226746558/][ProbMods: Generative Models]]
    - [[https://docs.google.com/presentation/d/1luD-4fwZ7Cq5Y8ZPHeUtW_4KEoI_YcoqKQBXlI2d6r4/edit?usp%3Dsharing][presentation]]
+* TODO add [[http://www.robots.ox.ac.uk/~fwood/anglican/][Anglican]] [[http://www.robots.ox.ac.uk/~fwood/anglican/assets/pdf/wood-aistats-2014b.pdf][paper]]                                            :papers:
+* TODO add [[https://dl.acm.org/citation.cfm?id=2804317][practical probabilistic programming with monads]]           :papers:
+  - [[https://github.com/adscib/monad-bayes][github source]]
 * TODO go through [[http://conf.researchr.org/track/POPL-2016/pps-2016#program][Probabilistic Programming Systems workshop 2016]]    :papers:
   
   - State "TODO"       from ""           [2016-01-15 Fri 08:09] \\
