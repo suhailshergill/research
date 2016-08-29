@@ -6,3 +6,8 @@ respository to host code examples exploring paper ideas along with the papers wh
 
 # Documentation
 ## [Haskell docs](http://suhailshergill.github.io/docs/research/haskell/)
+
+# TODOS
+## TTFI
+- haskell equivalent of [suhailshergill/TTFI#6 - type directed partial evaluation](https://github.com/suhailshergill/TTFI/issues/6)
+- haskell equivalent of [suhailshergill/TTFI#7 - interpretation parameterization](https://github.com/suhailshergill/TTFI/issues/6)
